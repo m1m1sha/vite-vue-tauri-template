@@ -1,0 +1,10 @@
+html,
+body,
+#app,
+.n-config-provider {
+  @apply h-full w-full;
+}
+
+.n-scrollbar-rail.n-scrollbar-rail--vertical {
+  @apply !right-0;
+}
