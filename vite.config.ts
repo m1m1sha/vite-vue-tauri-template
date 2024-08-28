@@ -1,4 +1,5 @@
 import path from 'node:path'
+import process from 'node:process'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Layouts from 'vite-plugin-vue-layouts'
@@ -11,6 +12,8 @@ import Unocss from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import { } from 'unplugin-vue-components/resolvers'
+
+const host = process.env.TAURI_DEV_HOST
 
 export default defineConfig(async () => ({
   resolve: {
@@ -76,10 +79,15 @@ export default defineConfig(async () => ({
 
   clearScreen: false,
   server: {
+    host: host || false,
     port: 1420,
     strictPort: true,
-    watch: {
-      ignored: ['**/src-tauri/**'],
-    },
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host,
+          port: 1430,
+        }
+      : undefined,
   },
 }))

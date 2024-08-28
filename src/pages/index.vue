@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <p>tauri-template</p>
+  <p>vite-vue-tauri-template</p>
 </template>
 
 <style scoped lang="postcss">
