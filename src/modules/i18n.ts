@@ -8,7 +8,7 @@ import { createI18n } from 'vue-i18n'
 // Don't need this? Try vitesse-lite: https://github.com/antfu/vitesse-lite
 const i18n = createI18n({
   legacy: false,
-  locale: '',
+  locale: 'zh-CN',
   messages: {},
 })
 
@@ -47,7 +47,7 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
   }
   catch {
     lang = 'zh-CN'
-    messages = await localesMap['zh-CN']()
+    messages = await localesMap[lang]()
   }
   langStore.value = lang
   i18n.global.setLocaleMessage(lang, messages.default)
