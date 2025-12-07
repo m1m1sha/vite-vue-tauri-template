@@ -1,12 +1,14 @@
 {
   "cSpell.words": [
     "antfu",
+    "Cdebuginfo",
     "demi",
     "iconify",
     "intlify",
     "nprogress",
     "pinia",
     "pnpm",
+    "rustflags",
     "serde",
     "sizecheck",
     "taze",
@@ -18,7 +20,8 @@
     "Vite",
     "vitejs",
     "vitest",
-    "vueuse"
+    "vueuse",
+    "Zthreads"
   ],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.keystyle": "nested",

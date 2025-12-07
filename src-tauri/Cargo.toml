@@ -1,17 +1,31 @@
+cargo-features = ["profile-rustflags", "trim-paths"]
+
 [package]
 name = "vite-vue-tauri-template"
 version = "0.0.0"
 description = "A Vite Vue Tauri App"
 authors = ["m1m1sha"]
-edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2024"
+rust-version = "1.91.1"
 
 [build-dependencies]
-tauri-build = { version = "2", features = [] }
+tauri-build = { version = "^2", features = ["config-json5"] }
 
 [dependencies]
-tauri = { version = "2", features = [] }
-tauri-plugin-shell = "2"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
+tauri = { version = "^2", features = ["config-json5"] }
+tauri-plugin-shell = "^2"
+serde = { version = "^1", features = ["derive"] }
+serde_json = "^1"
+
+[profile.dev]
+incremental = true
+rustflags = ["-Zthreads=8"] 
+
+[profile.release]
+codegen-units = 1
+lto = true 
+opt-level = "s" 
+panic = "abort" 
+strip = true 
+trim-paths = "all"
+rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] 

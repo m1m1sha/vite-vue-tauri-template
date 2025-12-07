@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "identifier": "com.example.dev",
   "build": {
+    "removeUnusedCommands": true,
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "bun run build",
