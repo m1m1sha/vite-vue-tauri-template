@@ -4,9 +4,9 @@
   "identifier": "com.example.dev",
   "build": {
     "removeUnusedCommands": true,
-    "beforeDevCommand": "bun run dev",
+    "beforeDevCommand": "bun run dev:desktop",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "bun run build",
+    "beforeBuildCommand": "bun run build:desktop",
     "frontendDist": "../dist"
   },
   "app": {
