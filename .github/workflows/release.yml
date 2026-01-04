@@ -68,25 +68,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Rust stable
-        # run: bash ./.github/workflows/install_rust.sh
-        uses: dtolnay/rust-toolchain@nightly # Set this to dtolnay/rust-toolchain@nightly
-        with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-          targets: ${{ matrix.target }}
-
-      - name: Rust cache
-        uses: swatinem/rust-cache@v2
-        with:
-          workspaces: ./src-tauri -> target
-
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install frontend dependencies
-        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: bun install # change this to npm or pnpm depending on which one you use.
-
       - name: Install dependencies (ubuntu && aarch64 only)
         if: ${{ startsWith(matrix.platform, 'ubuntu') &&  startsWith(matrix.target, 'aarch64') }}
         run: |
@@ -114,23 +95,38 @@ jobs:
           echo "deb [arch=armhf,arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security multiverse" | sudo tee -a /etc/apt/sources.list
 
           sudo dpkg --add-architecture arm64
-          sudo apt-get update && sudo apt-get upgrade -y
-          sudo apt-get install -y libgstreamer1.0-0:arm64 gstreamer1.0-plugins-base:arm64 gstreamer1.0-plugins-good:arm64
-          sudo apt-get install -y libgstreamer-gl1.0-0:arm64 libgstreamer-plugins-base1.0-0:arm64 libgstreamer-plugins-good1.0-0:arm64 libwebkit2gtk-4.1-0:arm64
-          sudo apt install -f -o Dpkg::Options::="--force-overwrite" libwebkit2gtk-4.1-dev:arm64 libssl-dev:arm64 gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-          # sudo apt-get install -y aarch64-linux-gnu-gcc aarch64-linux-gnu-g++ aarch64-linux-gnu-binutils
-          sudo apt-get install -y pkg-config-aarch64-linux-gnu
-
+          sudo apt update
+          sudo apt install aptitude
+          sudo aptitude install -y libgstreamer1.0-0:arm64 gstreamer1.0-plugins-base:arm64 gstreamer1.0-plugins-good:arm64 \
+            libgstreamer-gl1.0-0:arm64 libgstreamer-plugins-base1.0-0:arm64 libgstreamer-plugins-good1.0-0:arm64 libwebkit2gtk-4.1-0:arm64 \
+            libwebkit2gtk-4.1-dev:arm64 libssl-dev:arm64 gcc-aarch64-linux-gnu libsoup-3.0-dev:arm64 libjavascriptcoregtk-4.1-dev:arm64
           echo "PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu/" >> "$GITHUB_ENV"
           echo "PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig/" >> "$GITHUB_ENV"
-          echo "PKG_CONFIG_ALLOW_CROSS=1" >> "$GITHUB_ENV"
-          echo "PKG_CONFIG=pkg-config-aarch64-linux-gnu" >> "$GITHUB_ENV"
 
       - name: Install dependencies (ubuntu && x86_64 only)
         if: ${{ startsWith(matrix.platform, 'ubuntu') &&  startsWith(matrix.target, 'x86_64') }}
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install Rust stable
+        # run: bash ./.github/workflows/install_rust.sh
+        uses: dtolnay/rust-toolchain@nightly # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.target }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: ./src-tauri -> target
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: bun install # change this to npm or pnpm depending on which one you use.
 
       - name: Tauri build
         uses: tauri-apps/tauri-action@v0
