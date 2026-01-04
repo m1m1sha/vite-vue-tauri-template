@@ -17,7 +17,7 @@ serde_json = "^1"
 
 [profile.dev]
 incremental = true
-rustflags = ["-Zthreads=8"] 
+# rustflags = ["-Zthreads=8"] 
 
 [profile.release]
 codegen-units = 1
@@ -25,5 +25,5 @@ lto = true
 opt-level = "s" 
 panic = "abort" 
 strip = true 
-trim-paths = "all"
-rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] 
+# trim-paths = "all"
+# rustflags = ["-Cdebuginfo=0", "-Zthreads=8"] 
