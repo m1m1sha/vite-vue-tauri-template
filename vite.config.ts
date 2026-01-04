@@ -24,7 +24,7 @@ export default defineConfig(async () => ({
   },
 
   plugins: [
-    PreprocessorDirectives({ }),
+    PreprocessorDirectives(),
 
     VueMacros({
       plugins: {
@@ -55,6 +55,7 @@ export default defineConfig(async () => ({
       dts: 'src/auto-imports.d.ts',
       dirs: [
         'src/composables',
+        'src/components',
         'src/stores',
         'src/types',
       ],

@@ -93,5 +93,6 @@
     "json",
     "jsonc",
     "yaml"
-  ]
+  ],
+  "typescript.experimental.useTsgo": true
 }

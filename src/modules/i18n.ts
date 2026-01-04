@@ -55,7 +55,9 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
   return setI18nLanguage(lang)
 }
 
-export const install: UseModule = (app) => {
-  app.use(i18n)
-  loadLanguageAsync(langStore.value)
+export const module: UseModule = {
+  install: (app) => {
+    app.use(i18n)
+    loadLanguageAsync(langStore.value)
+  },
 }

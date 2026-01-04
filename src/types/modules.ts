@@ -1,3 +1,6 @@
 import type { App } from 'vue'
 
-export type UseModule = (app: App<Element>) => void
+export interface UseModule {
+  install: (app: App<Element>) => void
+  order?: number
+}
