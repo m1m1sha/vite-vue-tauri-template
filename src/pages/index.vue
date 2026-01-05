@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup lang="ts" vapor>
+const { t } = useI18n()
 </script>
 
 <template>
@@ -9,7 +10,7 @@
     // #elif TARGET_PLATFORM == 'web'
     <div>app</div>
     // #endif
-    <p>{{ $t('hello') }}</p>
+    <p>{{ t('hello') }}</p>
   </div>
 </template>
 
