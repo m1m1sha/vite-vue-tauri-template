@@ -10,7 +10,7 @@ export function installModules(app: App<Element>): App<Element> {
     { eager: true },
   ))
     .sort((a, b) => (b.module.order ?? 0) - (a.module.order ?? 0))
-    .forEach(async i => i.module.install(app))
+    .forEach(async i => await Promise.resolve(i.module.install(app)))
 
   return app
 }
