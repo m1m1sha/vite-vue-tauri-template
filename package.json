@@ -42,7 +42,7 @@
     "unocss": "^66.5.12",
     "unplugin-auto-import": "^20.3.0",
     "unplugin-preprocessor-directives": "^1.2.0",
-    "unplugin-vue-components": "^30.0.0",
+    "unplugin-vue-components": "^31.0.0",
     "unplugin-vue-macros": "^2.14.5",
     "unplugin-vue-markdown": "^29.2.0",
     "unplugin-vue-router": "^0.19.2",
